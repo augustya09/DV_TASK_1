@@ -1,8 +1,11 @@
 import csv
 from collections import deque
 
-stations_csv = "/content/sample_data/metro_stations_multiline.csv"
+#stations_csv = "/content/sample_data/metro_stations_multiline.csv"
 
+print('###########################################################')
+print('')
+print('')
 class station:
     # reading the CSV file & storing network connections
     def __init__(self):
@@ -10,7 +13,7 @@ class station:
 
     def csvreader(self):
         # fills self.connections dictionary
-        with open(stations_csv, "r") as file:
+        with open('data.csv', "r") as file:
             reader = csv.DictReader(file)
             for i in reader:
                 station = i["STATION"]
@@ -19,7 +22,7 @@ class station:
 
                 # Bidirectional connections
                 if station not in self.connections:
-                    self.connections[station] = []
+                    self.connections[station] = [] 
                 if next_station not in self.connections:
                     self.connections[next_station] = []
 
@@ -28,8 +31,13 @@ class station:
 
     def show_stations(self):
         print("The stations are:")
+        print('')
         for i in self.connections:
             print(i)
+
+
+print('')
+print('')
 
 class metro:
     def __init__(self, connections):
@@ -69,15 +77,21 @@ class metro:
         if not path:
             print("No path found")
             return
-
+        
+        print('')
         print("STATIONS IN THE WAY:")
         print(" _ ".join(path))
+        print('')
         
         total_stations = len(path) - 1
         fare = total_stations * 100
         
+        print('')
+        print('')
+
         print("The total number of stations:", total_stations)
         print("The fare is:", fare, "rupees")
+        print('')
         print('DETAILED INSTRUCTIONS:')
 
         current_line = self.get_line(path[0], path[1])
@@ -88,13 +102,17 @@ class metro:
             if next_line != current_line:
                 print('Change from', current_line, 'to', next_line, 'line at', path[i])
                 current_line = next_line
-
+        print('')
         print("Arrive at", path[-1], "on the", current_line, "line")
+        print('')
+        print('')
+        print('')
+        print("#############################################")
 
 class ticket:
     def __init__(self, station_data):
         self.stations = list(station_data.keys())
-        self.metro = Metro(station_data)
+        self.metro = metro(station_data)
 
     def book_ticket(self):
         start = input("Enter the starting station: ")
